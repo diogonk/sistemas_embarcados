@@ -1,0 +1,374 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         07/Apr/2019  22:38:10
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  D:\UTFPR\EMBARCADOS\sistemas_embarcados\inc\UART.c
+#    Command line =  
+#        -f C:\Users\Diogo\AppData\Local\Temp\EW6B87.tmp
+#        (D:\UTFPR\EMBARCADOS\sistemas_embarcados\inc\UART.c -D ewarm -D
+#        PART_TM4C1294NCPDT -lcN
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\List -o
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\Obj --no_cse
+#        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
+#        --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=None
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\..\..\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\inc\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\driverlib\ -Ol -I
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\CMSIS\Core\Include\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\List\UART.lst
+#    Object file  =  
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\Obj\UART.o
+#
+###############################################################################
+
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\inc\UART.c
+      1          // UART.c
+      2          // Runs on TM4C1294
+      3          // Simple device driver for the UART.
+      4          // Daniel Valvano
+      5          // May 29, 2014
+      6          // Modified by EE345L students Charlie Gough && Matt Hawk
+      7          // Modified by EE345M students Agustinus Darmawan && Mingjie Qiu
+      8          
+      9          /* This example accompanies the book
+     10             "Embedded Systems: Real Time Interfacing to Arm Cortex M Microcontrollers",
+     11             ISBN: 978-1463590154, Jonathan Valvano, copyright (c) 2014
+     12             Program 4.12, Section 4.9.4, Figures 4.26 and 4.40
+     13          
+     14           Copyright 2014 by Jonathan W. Valvano, valvano@mail.utexas.edu
+     15              You may use, edit, run or distribute this file
+     16              as long as the above copyright notice remains
+     17           THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+     18           OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+     19           MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+     20           VALVANO SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL,
+     21           OR CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+     22           For more information about my classes, my research, and my books, see
+     23           http://users.ece.utexas.edu/~valvano/
+     24           */
+     25          
+     26          // U0Rx (VCP receive) connected to PA0
+     27          // U0Tx (VCP transmit) connected to PA1
+     28          // Note: Connected LaunchPad JP4 and JP5 inserted parallel with long side of board.
+     29          
+     30          #include <stdint.h>
+     31          #include "UART.h"
+     32          
+     33          #define GPIO_PORTA_AFSEL_R      (*((volatile uint32_t *)0x40058420))
+     34          #define GPIO_PORTA_DEN_R        (*((volatile uint32_t *)0x4005851C))
+     35          #define GPIO_PORTA_AMSEL_R      (*((volatile uint32_t *)0x40058528))
+     36          #define GPIO_PORTA_PCTL_R       (*((volatile uint32_t *)0x4005852C))
+     37          #define UART0_DR_R              (*((volatile uint32_t *)0x4000C000))
+     38          #define UART0_FR_R              (*((volatile uint32_t *)0x4000C018))
+     39          #define UART_FR_TXFF            0x00000020  // UART Transmit FIFO Full
+     40          #define UART_FR_RXFE            0x00000010  // UART Receive FIFO Empty
+     41          #define UART0_IBRD_R            (*((volatile uint32_t *)0x4000C024))
+     42          #define UART0_FBRD_R            (*((volatile uint32_t *)0x4000C028))
+     43          #define UART0_LCRH_R            (*((volatile uint32_t *)0x4000C02C))
+     44          #define UART_LCRH_WLEN_8        0x00000060  // 8 bit word length
+     45          #define UART_LCRH_FEN           0x00000010  // UART Enable FIFOs
+     46          #define UART0_CTL_R             (*((volatile uint32_t *)0x4000C030))
+     47          #define UART_CTL_HSE            0x00000020  // High-Speed Enable
+     48          #define UART_CTL_UARTEN         0x00000001  // UART Enable
+     49          #define UART0_CC_R              (*((volatile uint32_t *)0x4000CFC8))
+     50          #define UART_CC_CS_M            0x0000000F  // UART Baud Clock Source
+     51          #define UART_CC_CS_SYSCLK       0x00000000  // System clock (based on clock
+     52                                                      // source and divisor factor)
+     53          #define UART_CC_CS_PIOSC        0x00000005  // PIOSC
+     54          #define SYSCTL_ALTCLKCFG_R      (*((volatile uint32_t *)0x400FE138))
+     55          #define SYSCTL_ALTCLKCFG_ALTCLK_M                                             \
+     56                                          0x0000000F  // Alternate Clock Source
+     57          #define SYSCTL_ALTCLKCFG_ALTCLK_PIOSC                                         \
+     58                                          0x00000000  // PIOSC
+     59          #define SYSCTL_RCGCGPIO_R       (*((volatile uint32_t *)0x400FE608))
+     60          #define SYSCTL_RCGCGPIO_R0      0x00000001  // GPIO Port A Run Mode Clock
+     61                                                      // Gating Control
+     62          #define SYSCTL_RCGCUART_R       (*((volatile uint32_t *)0x400FE618))
+     63          #define SYSCTL_RCGCUART_R0      0x00000001  // UART Module 0 Run Mode Clock
+     64                                                      // Gating Control
+     65          #define SYSCTL_PRGPIO_R         (*((volatile uint32_t *)0x400FEA08))
+     66          #define SYSCTL_PRGPIO_R0        0x00000001  // GPIO Port A Peripheral Ready
+     67          #define SYSCTL_PRUART_R         (*((volatile uint32_t *)0x400FEA18))
+     68          #define SYSCTL_PRUART_R0        0x00000001  // UART Module 0 Peripheral Ready
+     69          
+     70          //------------UART_Init------------
+     71          // Initialize UART0 for 115,200 baud rate (clock from 16 MHz PIOSC),
+     72          // 8 bit word length, no parity bits, one stop bit, FIFOs enabled,
+     73          // no interrupts
+     74          // Input: none
+     75          // Output: none
+     76          void UART_Init(void){
+     77                                                  // activate clock for UART0
+     78            SYSCTL_RCGCUART_R |= SYSCTL_RCGCUART_R0;
+     79                                                  // activate clock for Port A
+     80            SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R0;
+     81                                                  // allow time for clock to stabilize
+     82            while((SYSCTL_PRUART_R&SYSCTL_PRUART_R0) == 0){};
+     83            UART0_CTL_R &= ~UART_CTL_UARTEN;      // disable UART
+     84            UART0_IBRD_R = 8;                     // IBRD = int(16,000,000 / (16 * 115,200)) = int(8.681)
+     85            UART0_FBRD_R = 44;                    // FBRD = round(0.6806 * 64) = 44
+     86                                                  // 8 bit word length (no parity bits, one stop bit, FIFOs)
+     87            UART0_LCRH_R = (UART_LCRH_WLEN_8|UART_LCRH_FEN);
+     88                                                  // UART gets its clock from the alternate clock source as defined by SYSCTL_ALTCLKCFG_R
+     89            UART0_CC_R = (UART0_CC_R&~UART_CC_CS_M)+UART_CC_CS_PIOSC;
+     90                                                  // the alternate clock source is the PIOSC (default)
+     91            SYSCTL_ALTCLKCFG_R = (SYSCTL_ALTCLKCFG_R&~SYSCTL_ALTCLKCFG_ALTCLK_M)+SYSCTL_ALTCLKCFG_ALTCLK_PIOSC;
+     92            UART0_CTL_R &= ~UART_CTL_HSE;         // high-speed disable; divide clock by 16 rather than 8 (default)
+     93            UART0_CTL_R |= UART_CTL_UARTEN;       // enable UART
+     94                                                  // allow time for clock to stabilize
+     95            while((SYSCTL_PRGPIO_R&SYSCTL_PRGPIO_R0) == 0){};
+     96            GPIO_PORTA_AFSEL_R |= 0x03;           // enable alt funct on PA1-0
+     97            GPIO_PORTA_DEN_R |= 0x03;             // enable digital I/O on PA1-0
+     98                                                  // configure PA1-0 as UART
+     99            GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0xFFFFFF00)+0x00000011;
+    100            GPIO_PORTA_AMSEL_R &= ~0x03;          // disable analog functionality on PA
+    101          }
+    102          
+    103          //------------UART_InChar------------
+    104          // Wait for new serial port input
+    105          // Input: none
+    106          // Output: ASCII code for key typed
+    107          char UART_InChar(void){
+    108            while((UART0_FR_R&UART_FR_RXFE) != 0);
+    109            return((uint8_t)(UART0_DR_R&0xFF));
+    110          }
+    111          
+    112          //------------UART_OutChar------------
+    113          // Output 8-bit to serial port
+    114          // Input: letter is an 8-bit ASCII character to be transferred
+    115          // Output: none
+    116          void UART_OutChar(char data){
+    117            while((UART0_FR_R&UART_FR_TXFF) != 0);
+    118            UART0_DR_R = data;
+    119          }
+    120          
+    121          //------------UART_OutString------------
+    122          // Output String (NULL termination)
+    123          // Input: pointer to a NULL-terminated string to be transferred
+    124          // Output: none
+    125          void UART_OutString(char *pt){
+    126            while(*pt){
+    127              UART_OutChar(*pt);
+    128              pt++;
+    129            }
+    130          }
+    131          
+    132          //------------UART_InUDec------------
+    133          // InUDec accepts ASCII input in unsigned decimal format
+    134          //     and converts to a 32-bit unsigned number
+    135          //     valid range is 0 to 4294967295 (2^32-1)
+    136          // Input: none
+    137          // Output: 32-bit unsigned number
+    138          // If you enter a number above 4294967295, it will return an incorrect value
+    139          // Backspace will remove last digit typed
+    140          uint32_t UART_InUDec(void){
+    141          uint32_t number=0, length=0;
+    142          char character;
+    143            character = UART_InChar();
+    144            while(character != CR){ // accepts until <enter> is typed
+    145          // The next line checks that the input is a digit, 0-9.
+    146          // If the character is not 0-9, it is ignored and not echoed
+    147              if((character>='0') && (character<='9')) {
+    148                number = 10*number+(character-'0');   // this line overflows if above 4294967295
+    149                length++;
+    150                UART_OutChar(character);
+    151              }
+    152          // If the input is a backspace, then the return number is
+    153          // changed and a backspace is outputted to the screen
+    154              else if((character==BS) && length){
+    155                number /= 10;
+    156                length--;
+    157                UART_OutChar(character);
+    158              }
+    159              character = UART_InChar();
+    160            }
+    161            return number;
+    162          }
+    163          
+    164          //-----------------------UART_OutUDec-----------------------
+    165          // Output a 32-bit number in unsigned decimal format
+    166          // Input: 32-bit number to be transferred
+    167          // Output: none
+    168          // Variable format 1-10 digits with no space before or after
+    169          void UART_OutUDec(uint32_t n){
+    170          // This function uses recursion to convert decimal number
+    171          //   of unspecified length as an ASCII string
+    172            if(n >= 10){
+    173              UART_OutUDec(n/10);
+    174              n = n%10;
+    175            }
+    176            UART_OutChar(n+'0'); /* n is between 0 and 9 */
+    177          }
+    178          
+    179          //---------------------UART_InUHex----------------------------------------
+    180          // Accepts ASCII input in unsigned hexadecimal (base 16) format
+    181          // Input: none
+    182          // Output: 32-bit unsigned number
+    183          // No '$' or '0x' need be entered, just the 1 to 8 hex digits
+    184          // It will convert lower case a-f to uppercase A-F
+    185          //     and converts to a 16 bit unsigned number
+    186          //     value range is 0 to FFFFFFFF
+    187          // If you enter a number above FFFFFFFF, it will return an incorrect value
+    188          // Backspace will remove last digit typed
+    189          uint32_t UART_InUHex(void){
+    190          uint32_t number=0, digit, length=0;
+    191          char character;
+    192            character = UART_InChar();
+    193            while(character != CR){
+    194              digit = 0x10; // assume bad
+    195              if((character>='0') && (character<='9')){
+    196                digit = character-'0';
+    197              }
+    198              else if((character>='A') && (character<='F')){
+    199                digit = (character-'A')+0xA;
+    200              }
+    201              else if((character>='a') && (character<='f')){
+    202                digit = (character-'a')+0xA;
+    203              }
+    204          // If the character is not 0-9 or A-F, it is ignored and not echoed
+    205              if(digit <= 0xF){
+    206                number = number*0x10+digit;
+    207                length++;
+    208                UART_OutChar(character);
+    209              }
+    210          // Backspace outputted and return value changed if a backspace is inputted
+    211              else if((character==BS) && length){
+    212                number /= 0x10;
+    213                length--;
+    214                UART_OutChar(character);
+    215              }
+    216              character = UART_InChar();
+    217            }
+    218            return number;
+    219          }
+    220          
+    221          //--------------------------UART_OutUHex----------------------------
+    222          // Output a 32-bit number in unsigned hexadecimal format
+    223          // Input: 32-bit number to be transferred
+    224          // Output: none
+    225          // Variable format 1 to 8 digits with no space before or after
+    226          void UART_OutUHex(uint32_t number){
+    227          // This function uses recursion to convert the number of
+    228          //   unspecified length as an ASCII string
+    229            if(number >= 0x10){
+    230              UART_OutUHex(number/0x10);
+    231              UART_OutUHex(number%0x10);
+    232            }
+    233            else{
+    234              if(number < 0xA){
+    235                UART_OutChar(number+'0');
+    236               }
+    237              else{
+    238                UART_OutChar((number-0x0A)+'A');
+    239              }
+    240            }
+    241          }
+    242          
+    243          //------------UART_InString------------
+    244          // Accepts ASCII characters from the serial port
+    245          //    and adds them to a string until <enter> is typed
+    246          //    or until max length of the string is reached.
+    247          // It echoes each character as it is inputted.
+    248          // If a backspace is inputted, the string is modified
+    249          //    and the backspace is echoed
+    250          // terminates the string with a null character
+    251          // uses busy-waiting synchronization on RDRF
+    252          // Input: pointer to empty buffer, size of buffer
+    253          // Output: Null terminated string
+    254          // -- Modified by Agustinus Darmawan + Mingjie Qiu --
+    255          void UART_InString(char *bufPt, uint16_t max) {
+    256          uint16_t length=0;
+    257          char character;
+    258            character = UART_InChar();
+    259            while(character != CR){
+    260              if(character == BS){
+    261                if(length){
+    262                  bufPt--;
+    263                  length--;
+    264                  UART_OutChar(BS);
+    265                }
+    266              }
+    267              else if(length < max){
+    268                *bufPt = character;
+    269                bufPt++;
+    270                length++;
+    271                UART_OutChar(character);
+    272              }
+    273              character = UART_InChar();
+    274            }
+    275            *bufPt = 0;
+    276          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   UART_InChar
+      16   UART_InString
+        16   -> UART_InChar
+        16   -> UART_OutChar
+      16   UART_InUDec
+        16   -> UART_InChar
+        16   -> UART_OutChar
+      16   UART_InUHex
+        16   -> UART_InChar
+        16   -> UART_OutChar
+       0   UART_Init
+       0   UART_OutChar
+       8   UART_OutString
+         8   -> UART_OutChar
+       8   UART_OutUDec
+         8   -> UART_OutChar
+         8   -> UART_OutUDec
+       8   UART_OutUHex
+         8   -> UART_OutChar
+         8   -> UART_OutUHex
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable2_1
+       4  ??DataTable2_10
+       4  ??DataTable2_11
+       4  ??DataTable2_12
+       4  ??DataTable2_13
+       4  ??DataTable2_14
+       4  ??DataTable2_15
+       4  ??DataTable2_2
+       4  ??DataTable2_3
+       4  ??DataTable2_4
+       4  ??DataTable2_5
+       4  ??DataTable2_6
+       4  ??DataTable2_7
+       4  ??DataTable2_8
+       4  ??DataTable2_9
+      16  UART_InChar
+      84  UART_InString
+      86  UART_InUDec
+     126  UART_InUHex
+     146  UART_Init
+      16  UART_OutChar
+      22  UART_OutString
+      40  UART_OutUDec
+      56  UART_OutUHex
+
+ 
+ 656 bytes in section .text
+ 
+ 656 bytes of CODE memory
+
+Errors: none
+Warnings: none

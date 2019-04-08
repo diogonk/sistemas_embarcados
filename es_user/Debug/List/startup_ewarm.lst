@@ -1,0 +1,382 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         07/Apr/2019  22:38:09
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\startup_ewarm.c
+#    Command line =  
+#        -f C:\Users\Diogo\AppData\Local\Temp\EW6A0E.tmp
+#        (D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\startup_ewarm.c
+#        -D ewarm -D PART_TM4C1294NCPDT -lcN
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\List -o
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\Obj --no_cse
+#        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
+#        --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=None
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\..\..\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\inc\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\driverlib\ -Ol -I
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\CMSIS\Core\Include\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\List\startup_ewarm.lst
+#    Object file  =  
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\Obj\startup_ewarm.o
+#
+###############################################################################
+
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\startup_ewarm.c
+      1          //*****************************************************************************
+      2          //
+      3          // startup_ewarm.c - Startup code for use with IAR's Embedded Workbench,
+      4          //                   version 5.
+      5          //
+      6          // Copyright (c) 2013-2014 Texas Instruments Incorporated.  All rights reserved.
+      7          // Software License Agreement
+      8          // 
+      9          // Texas Instruments (TI) is supplying this software for use solely and
+     10          // exclusively on TI's microcontroller products. The software is owned by
+     11          // TI and/or its suppliers, and is protected under applicable copyright
+     12          // laws. You may not combine this software with "viral" open-source
+     13          // software in order to form a larger program.
+     14          // 
+     15          // THIS SOFTWARE IS PROVIDED "AS IS" AND WITH ALL FAULTS.
+     16          // NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT
+     17          // NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+     18          // A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. TI SHALL NOT, UNDER ANY
+     19          // CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
+     20          // DAMAGES, FOR ANY REASON WHATSOEVER.
+     21          // 
+     22          // This is part of revision 2.1.0.12573 of the EK-TM4C1294XL Firmware Package.
+     23          //
+     24          //*****************************************************************************
+     25          
+     26          #include <stdint.h>
+     27          #include "inc/hw_nvic.h"
+     28          #include "inc/hw_types.h"
+     29          
+     30          //*****************************************************************************
+     31          //
+     32          // Enable the IAR extensions for this source file.
+     33          //
+     34          //*****************************************************************************
+     35          #pragma language=extended
+     36          
+     37          //*****************************************************************************
+     38          //
+     39          // Forward declaration of the default fault handlers.
+     40          //
+     41          //*****************************************************************************
+     42          void ResetISR(void);
+     43          static void NMISR(void);
+     44          static void FaultISR(void);
+     45          static void IntDefaultHandler(void);
+     46          extern void SysTick_Handler(void); // The SysTick Handler
+     47          
+     48          //*****************************************************************************
+     49          //
+     50          // The entry point for the application startup code.
+     51          //
+     52          //*****************************************************************************
+     53          extern void __iar_program_start(void);
+     54          
+     55          //*****************************************************************************
+     56          //
+     57          // Reserve space for the system stack.
+     58          //
+     59          //*****************************************************************************
+     60          static uint32_t pui32Stack[128] @ ".noinit";
+     61          
+     62          //*****************************************************************************
+     63          //
+     64          // A union that describes the entries of the vector table.  The union is needed
+     65          // since the first entry is the stack pointer and the remainder are function
+     66          // pointers.
+     67          //
+     68          //*****************************************************************************
+     69          typedef union
+     70          {
+     71              void (*pfnHandler)(void);
+     72              uint32_t ui32Ptr;
+     73          }
+     74          uVectorEntry;
+     75          
+     76          //*****************************************************************************
+     77          //
+     78          // The vector table.  Note that the proper constructs must be placed on this to
+     79          // ensure that it ends up at physical address 0x0000.0000.
+     80          //
+     81          //*****************************************************************************
+     82          __root const uVectorEntry __vector_table[] @ ".intvec" =
+     83          {
+     84              { .ui32Ptr = (uint32_t)pui32Stack + sizeof(pui32Stack) },
+     85                                                      // The initial stack pointer
+     86              ResetISR,                               // The reset handler
+     87              NMISR,                                  // The NMI handler
+     88              FaultISR,                               // The hard fault handler
+     89              IntDefaultHandler,                      // The MPU fault handler
+     90              IntDefaultHandler,                      // The bus fault handler
+     91              IntDefaultHandler,                      // The usage fault handler
+     92              0,                                      // Reserved
+     93              0,                                      // Reserved
+     94              0,                                      // Reserved
+     95              0,                                      // Reserved
+     96              IntDefaultHandler,                      // SVCall handler
+     97              IntDefaultHandler,                      // Debug monitor handler
+     98              0,                                      // Reserved
+     99              IntDefaultHandler,                      // The PendSV handler
+    100              SysTick_Handler,                        // The SysTick handler
+    101              IntDefaultHandler,                      // GPIO Port A
+    102              IntDefaultHandler,                      // GPIO Port B
+    103              IntDefaultHandler,                      // GPIO Port C
+    104              IntDefaultHandler,                      // GPIO Port D
+    105              IntDefaultHandler,                      // GPIO Port E
+    106              IntDefaultHandler,                      // UART0 Rx and Tx
+    107              IntDefaultHandler,                      // UART1 Rx and Tx
+    108              IntDefaultHandler,                      // SSI0 Rx and Tx
+    109              IntDefaultHandler,                      // I2C0 Master and Slave
+    110              IntDefaultHandler,                      // PWM Fault
+    111              IntDefaultHandler,                      // PWM Generator 0
+    112              IntDefaultHandler,                      // PWM Generator 1
+    113              IntDefaultHandler,                      // PWM Generator 2
+    114              IntDefaultHandler,                      // Quadrature Encoder 0
+    115              IntDefaultHandler,                      // ADC Sequence 0
+    116              IntDefaultHandler,                      // ADC Sequence 1
+    117              IntDefaultHandler,                      // ADC Sequence 2
+    118              IntDefaultHandler,                      // ADC Sequence 3
+    119              IntDefaultHandler,                      // Watchdog timer
+    120              IntDefaultHandler,                      // Timer 0 subtimer A
+    121              IntDefaultHandler,                      // Timer 0 subtimer B
+    122              IntDefaultHandler,                      // Timer 1 subtimer A
+    123              IntDefaultHandler,                      // Timer 1 subtimer B
+    124              IntDefaultHandler,                      // Timer 2 subtimer A
+    125              IntDefaultHandler,                      // Timer 2 subtimer B
+    126              IntDefaultHandler,                      // Analog Comparator 0
+    127              IntDefaultHandler,                      // Analog Comparator 1
+    128              IntDefaultHandler,                      // Analog Comparator 2
+    129              IntDefaultHandler,                      // System Control (PLL, OSC, BO)
+    130              IntDefaultHandler,                      // FLASH Control
+    131              IntDefaultHandler,                      // GPIO Port F
+    132              IntDefaultHandler,                      // GPIO Port G
+    133              IntDefaultHandler,                      // GPIO Port H
+    134              IntDefaultHandler,                      // UART2 Rx and Tx
+    135              IntDefaultHandler,                      // SSI1 Rx and Tx
+    136              IntDefaultHandler,                      // Timer 3 subtimer A
+    137              IntDefaultHandler,                      // Timer 3 subtimer B
+    138              IntDefaultHandler,                      // I2C1 Master and Slave
+    139              IntDefaultHandler,                      // CAN0
+    140              IntDefaultHandler,                      // CAN1
+    141              IntDefaultHandler,                      // Ethernet
+    142              IntDefaultHandler,                      // Hibernate
+    143              IntDefaultHandler,                      // USB0
+    144              IntDefaultHandler,                      // PWM Generator 3
+    145              IntDefaultHandler,                      // uDMA Software Transfer
+    146              IntDefaultHandler,                      // uDMA Error
+    147              IntDefaultHandler,                      // ADC1 Sequence 0
+    148              IntDefaultHandler,                      // ADC1 Sequence 1
+    149              IntDefaultHandler,                      // ADC1 Sequence 2
+    150              IntDefaultHandler,                      // ADC1 Sequence 3
+    151              IntDefaultHandler,                      // External Bus Interface 0
+    152              IntDefaultHandler,                      // GPIO Port J
+    153              IntDefaultHandler,                      // GPIO Port K
+    154              IntDefaultHandler,                      // GPIO Port L
+    155              IntDefaultHandler,                      // SSI2 Rx and Tx
+    156              IntDefaultHandler,                      // SSI3 Rx and Tx
+    157              IntDefaultHandler,                      // UART3 Rx and Tx
+    158              IntDefaultHandler,                      // UART4 Rx and Tx
+    159              IntDefaultHandler,                      // UART5 Rx and Tx
+    160              IntDefaultHandler,                      // UART6 Rx and Tx
+    161              IntDefaultHandler,                      // UART7 Rx and Tx
+    162              IntDefaultHandler,                      // I2C2 Master and Slave
+    163              IntDefaultHandler,                      // I2C3 Master and Slave
+    164              IntDefaultHandler,                      // Timer 4 subtimer A
+    165              IntDefaultHandler,                      // Timer 4 subtimer B
+    166              IntDefaultHandler,                      // Timer 5 subtimer A
+    167              IntDefaultHandler,                      // Timer 5 subtimer B
+    168              IntDefaultHandler,                      // FPU
+    169              0,                                      // Reserved
+    170              0,                                      // Reserved
+    171              IntDefaultHandler,                      // I2C4 Master and Slave
+    172              IntDefaultHandler,                      // I2C5 Master and Slave
+    173              IntDefaultHandler,                      // GPIO Port M
+    174              IntDefaultHandler,                      // GPIO Port N
+    175              0,                                      // Reserved
+    176              IntDefaultHandler,                      // Tamper
+    177              IntDefaultHandler,                      // GPIO Port P (Summary or P0)
+    178              IntDefaultHandler,                      // GPIO Port P1
+    179              IntDefaultHandler,                      // GPIO Port P2
+    180              IntDefaultHandler,                      // GPIO Port P3
+    181              IntDefaultHandler,                      // GPIO Port P4
+    182              IntDefaultHandler,                      // GPIO Port P5
+    183              IntDefaultHandler,                      // GPIO Port P6
+    184              IntDefaultHandler,                      // GPIO Port P7
+    185              IntDefaultHandler,                      // GPIO Port Q (Summary or Q0)
+    186              IntDefaultHandler,                      // GPIO Port Q1
+    187              IntDefaultHandler,                      // GPIO Port Q2
+    188              IntDefaultHandler,                      // GPIO Port Q3
+    189              IntDefaultHandler,                      // GPIO Port Q4
+    190              IntDefaultHandler,                      // GPIO Port Q5
+    191              IntDefaultHandler,                      // GPIO Port Q6
+    192              IntDefaultHandler,                      // GPIO Port Q7
+    193              IntDefaultHandler,                      // GPIO Port R
+    194              IntDefaultHandler,                      // GPIO Port S
+    195              IntDefaultHandler,                      // SHA/MD5 0
+    196              IntDefaultHandler,                      // AES 0
+    197              IntDefaultHandler,                      // DES3DES 0
+    198              IntDefaultHandler,                      // LCD Controller 0
+    199              IntDefaultHandler,                      // Timer 6 subtimer A
+    200              IntDefaultHandler,                      // Timer 6 subtimer B
+    201              IntDefaultHandler,                      // Timer 7 subtimer A
+    202              IntDefaultHandler,                      // Timer 7 subtimer B
+    203              IntDefaultHandler,                      // I2C6 Master and Slave
+    204              IntDefaultHandler,                      // I2C7 Master and Slave
+    205              IntDefaultHandler,                      // HIM Scan Matrix Keyboard 0
+    206              IntDefaultHandler,                      // One Wire 0
+    207              IntDefaultHandler,                      // HIM PS/2 0
+    208              IntDefaultHandler,                      // HIM LED Sequencer 0
+    209              IntDefaultHandler,                      // HIM Consumer IR 0
+    210              IntDefaultHandler,                      // I2C8 Master and Slave
+    211              IntDefaultHandler,                      // I2C9 Master and Slave
+    212              IntDefaultHandler                       // GPIO Port T
+    213          };
+    214          
+    215          //*****************************************************************************
+    216          //
+    217          // This is the code that gets called when the processor first starts execution
+    218          // following a reset event.  Only the absolutely necessary set is performed,
+    219          // after which the application supplied entry() routine is called.  Any fancy
+    220          // actions (such as making decisions based on the reset cause register, and
+    221          // resetting the bits in that register) are left solely in the hands of the
+    222          // application.
+    223          //
+    224          //*****************************************************************************
+    225          void
+    226          ResetISR(void)
+    227          {
+    228              //
+    229              // Enable the floating-point unit.  This must be done here to handle the
+    230              // case where main() uses floating-point and the function prologue saves
+    231              // floating-point registers (which will fault if floating-point is not
+    232              // enabled).  Any configuration of the floating-point unit using DriverLib
+    233              // APIs must be done here prior to the floating-point unit being enabled.
+    234              //
+    235              // Note that this does not use DriverLib since it might not be included in
+    236              // this project.
+    237              //
+    238          
+    239              // Call the application's entry point.
+    240              //
+    241              __iar_program_start();
+    242          }
+    243          
+    244          //*****************************************************************************
+    245          //
+    246          // This is the code that gets called when the processor receives a NMI.  This
+    247          // simply enters an infinite loop, preserving the system state for examination
+    248          // by a debugger.
+    249          //
+    250          //*****************************************************************************
+    251          static void
+    252          NMISR(void)
+    253          {
+    254              //
+    255              // Enter an infinite loop.
+    256              //
+    257              while(1)
+    258              {
+    259              }
+    260          }
+    261          
+    262          //*****************************************************************************
+    263          //
+    264          // This is the code that gets called when the processor receives a fault
+    265          // interrupt.  This simply enters an infinite loop, preserving the system state
+    266          // for examination by a debugger.
+    267          //
+    268          //*****************************************************************************
+    269          static void
+    270          FaultISR(void)
+    271          {
+    272              //
+    273              // Enter an infinite loop.
+    274              //
+    275              while(1)
+    276              {
+    277              }
+    278          }
+    279          
+    280          //*****************************************************************************
+    281          //
+    282          // This is the code that gets called when the processor receives an unexpected
+    283          // interrupt.  This simply enters an infinite loop, preserving the system state
+    284          // for examination by a debugger.
+    285          //
+    286          //*****************************************************************************
+    287          static void
+    288          IntDefaultHandler(void)
+    289          {
+    290              //
+    291              // Go into an infinite loop.
+    292              //
+    293              while(1)
+    294              {
+    295              }
+    296          }
+    297          
+    298          // This function disables FPU initialization and sets up the PSP
+    299          __weak void __iar_init_vfp(void);
+    300          inline void __iar_init_vfp(void){
+    301            asm("MOV R1, SP");
+    302            asm("ADD R1, R1, #64"); // assuming stack size 128
+    303          
+    304            asm("MRS R0, CONTROL");
+    305            asm("ORR R0, R0, #2");
+    306            asm("MSR CONTROL, R0");
+    307            asm("DSB");
+    308            asm("ISB");
+    309          
+    310            asm("MOV SP, R1");
+    311          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   FaultISR
+       0   IntDefaultHandler
+       0   NMISR
+       8   ResetISR
+         8   -> __iar_program_start
+       0   __iar_init_vfp
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  FaultISR
+       2  IntDefaultHandler
+       2  NMISR
+       8  ResetISR
+      30  __iar_init_vfp
+     512  __vector_table
+     512  pui32Stack
+
+ 
+ 512 bytes in section .intvec
+ 512 bytes in section .noinit
+  44 bytes in section .text
+ 
+  44 bytes of CODE  memory
+ 512 bytes of CONST memory
+ 512 bytes of DATA  memory
+
+Errors: none
+Warnings: none
