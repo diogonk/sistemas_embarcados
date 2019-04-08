@@ -1,0 +1,228 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         07/Apr/2019  22:38:09
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\main.c
+#    Command line =  
+#        -f C:\Users\Diogo\AppData\Local\Temp\EW6A1F.tmp
+#        (D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\main.c -D ewarm
+#        -D PART_TM4C1294NCPDT -lcN
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\List -o
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\Obj --no_cse
+#        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
+#        --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=None
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\..\..\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\inc\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\driverlib\ -Ol -I
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\CMSIS\Core\Include\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.2\arm\CMSIS\DSP\Include\")
+#    Locale       =  C
+#    List file    =  
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\List\main.lst
+#    Object file  =  
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\Obj\main.o
+#
+###############################################################################
+
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\main.c
+      1          #include <stdbool.h>
+      2          #include <stdint.h>
+      3          #include <string.h>
+      4          #include "inc/tm4c1294ncpdt.h" // CMSIS-Core
+      5          #include "inc/hw_memmap.h"
+      6          #include "driverlib/sysctl.h" // driverlib
+      7          #include "driverlib/gpio.h"
+      8          #include "driverlib/systick.h"
+      9          #include "inc/UART.h"
+     10          
+     11          /*
+     12          https://dzone.com/articles/cycle-counting-on-an-arm-cortex-m-with-dwt
+     13          */
+     14            /* DWT (Data Watchpoint and Trace) registers, only exists on ARM Cortex with a DWT unit */
+     15            #define KIN1_DWT_CONTROL             (*((volatile uint32_t*)0xE0001000))
+     16              /*!< DWT Control register */
+     17            #define KIN1_DWT_CYCCNTENA_BIT       (1UL<<0)
+     18              /*!< CYCCNTENA bit in DWT_CONTROL register */
+     19            #define KIN1_DWT_CYCCNT              (*((volatile uint32_t*)0xE0001004))
+     20              /*!< DWT Cycle Counter register */
+     21            #define KIN1_DEMCR                   (*((volatile uint32_t*)0xE000EDFC))
+     22              /*!< DEMCR: Debug Exception and Monitor Control Register */
+     23            #define KIN1_TRCENA_BIT              (1UL<<24)
+     24              /*!< Trace enable bit in DEMCR register */
+     25          
+     26          #define KIN1_InitCycleCounter() \
+     27            KIN1_DEMCR |= KIN1_TRCENA_BIT
+     28            /*!< TRCENA: Enable trace and debug block DEMCR (Debug Exception and Monitor Control Register */
+     29           
+     30          #define KIN1_ResetCycleCounter() \
+     31            KIN1_DWT_CYCCNT = 0
+     32            /*!< Reset cycle counter */
+     33           
+     34          #define KIN1_EnableCycleCounter() \
+     35            KIN1_DWT_CONTROL |= KIN1_DWT_CYCCNTENA_BIT
+     36            /*!< Enable cycle counter */
+     37           
+     38          #define KIN1_DisableCycleCounter() \
+     39            KIN1_DWT_CONTROL &= ~KIN1_DWT_CYCCNTENA_BIT
+     40            /*!< Disable cycle counter */
+     41           
+     42          #define KIN1_GetCycleCounter() \
+     43            KIN1_DWT_CYCCNT
+     44            /*!< Read cycle counter register */
+     45          
+     46          
+     47          
+     48          uint8_t LED_D1 = 0;
+     49          //extern int f_asm(int a, int b);
+     50          extern int count_pulse_hz(void);
+     51          extern int count_pulse_khz(void);
+     52          
+     53          // U0Rx (VCP receive) connected to PA0
+     54          // U0Tx (VCP transmit) connected to PA1
+     55          // Note: Connected LaunchPad JP4 and JP5 inserted parallel with long side of board.
+     56          void OutCRLF(void){
+     57            UART_OutChar(CR);
+     58            UART_OutChar(LF);
+     59          }
+     60          
+     61          void SysTick_Handler(void){
+     62              GPIOPinWrite(GPIO_PORTK_BASE, GPIO_PIN_1, LED_D1); // habilita ou desabilita saída PK1
+     63              LED_D1 ^= GPIO_PIN_1; // Troca estado
+     64          } // SysTick_Handler
+     65          
+     66          void main(void)
+     67          {
+     68            //uint32_t cycles; /* number of cycles */
+     69            char string_rx[4];      /*string para receber dados da UART*/
+     70            uint32_t read_sequence; /*sequencia da leitura*/
+     71            uint32_t frequency;     /*Frequencia calculada*/
+     72            uint8_t is_khz_to_read = 0; /*flag para habilitar leitura em kHz[1] ou Hz[0]*/
+     73          
+     74            //KIN1_InitCycleCounter(); /* enable DWT hardware | usado para contar o numero de ciclos*/
+     75            UART_Init();
+     76            uint32_t ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |
+     77                                                        SYSCTL_OSC_MAIN |
+     78                                                        SYSCTL_USE_PLL |
+     79                                                        SYSCTL_CFG_VCO_480),
+     80                                                        24000000); // PLL em 24MHz
+     81          
+     82            //SysTickEnable();
+     83            //SysTickPeriodSet(2400000); // f = 5Hz
+     84          
+     85            SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ); // Habilita GPIO J (push-button SW1 = PJ0, push-button SW2 = PJ1)
+     86            while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOJ)); // Aguarda final da habilitação
+     87              
+     88            GPIOPinTypeGPIOInput(GPIO_PORTJ_BASE, GPIO_PIN_0 | GPIO_PIN_1); // push-buttons SW1 e SW2 como entrada
+     89            GPIOPadConfigSet(GPIO_PORTJ_BASE, GPIO_PIN_0 | GPIO_PIN_1, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
+     90          
+     91          
+     92            SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOK); // Habilita GPIO K 0 = input| 1 = output
+     93            while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOK)); // Aguarda final da habilitação  
+     94            
+     95            GPIOPinTypeGPIOInput(GPIO_PORTK_BASE, GPIO_PIN_0); // PIN 0 as input
+     96            GPIOPadConfigSet(GPIO_PORTK_BASE, GPIO_PIN_0, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
+     97            GPIOPinTypeGPIOOutput(GPIO_PORTK_BASE, GPIO_PIN_1); // PIN 1 as output
+     98            GPIOPadConfigSet(GPIO_PORTK_BASE, GPIO_PIN_1, GPIO_STRENGTH_12MA, GPIO_PIN_TYPE_STD);
+     99            
+    100            //SysTickIntEnable();
+    101          
+    102          
+    103            //KIN1_ResetCycleCounter(); /* reset cycle counter */
+    104            //KIN1_EnableCycleCounter(); /* start counting */
+    105          
+    106            while(1)
+    107            {
+    108              /* Verify if there is data to receive in UART0*/
+    109              if((UART0_FR_R&UART_FR_RXFE) == 0)
+    110              {
+    111                UART_InString(string_rx,3); OutCRLF();
+    112                if(strcmp(string_rx, "kHz") == 0) //0x6b487a0d
+    113                  is_khz_to_read = 1;
+    114                else
+    115                  is_khz_to_read = 0;
+    116              }
+    117          
+    118             if(!(GPIOPinRead(GPIO_PORTJ_BASE, GPIO_PIN_1) == GPIO_PIN_1))
+    119             {
+    120               UART_OutString(is_khz_to_read?"kHz:": "Hz:");
+    121              for(read_sequence=0; read_sequence<10; read_sequence++)
+    122              {
+    123                //UART_OutUDec(read_sequence);
+    124                //KIN1_ResetCycleCounter(); /* reset cycle counter */
+    125                frequency = is_khz_to_read? count_pulse_khz()/2:count_pulse_hz()/2;
+    126                //cycles = KIN1_GetCycleCounter(); /* get cycle counter */
+    127                UART_OutUDec(frequency); UART_OutChar(';');
+    128              }//for
+    129              OutCRLF();
+    130             }
+    131            } // while
+    132          } // main
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   OutCRLF
+         8   -> UART_OutChar
+       8   SysTick_Handler
+         8   -> GPIOPinWrite
+      24   main
+        24   -> GPIOPadConfigSet
+        24   -> GPIOPinRead
+        24   -> GPIOPinTypeGPIOInput
+        24   -> GPIOPinTypeGPIOOutput
+        24   -> OutCRLF
+        24   -> SysCtlClockFreqSet
+        24   -> SysCtlPeripheralEnable
+        24   -> SysCtlPeripheralReady
+        24   -> UART_InString
+        24   -> UART_Init
+        24   -> UART_OutChar
+        24   -> UART_OutString
+        24   -> UART_OutUDec
+        24   -> count_pulse_hz
+        24   -> count_pulse_khz
+        24   -> strcmp
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable2_1
+       4  ??DataTable2_10
+       4  ??DataTable2_2
+       4  ??DataTable2_3
+       4  ??DataTable2_4
+       4  ??DataTable2_5
+       4  ??DataTable2_6
+       4  ??DataTable2_7
+       4  ??DataTable2_8
+       4  ??DataTable2_9
+       4  ?_0
+       8  ?_1
+       4  ?_2
+       1  LED_D1
+      16  OutCRLF
+      24  SysTick_Handler
+     240  main
+
+ 
+   1 byte  in section .bss
+  16 bytes in section .rodata
+ 324 bytes in section .text
+ 
+ 324 bytes of CODE  memory
+  16 bytes of CONST memory
+   1 byte  of DATA  memory
+
+Errors: none
+Warnings: none
