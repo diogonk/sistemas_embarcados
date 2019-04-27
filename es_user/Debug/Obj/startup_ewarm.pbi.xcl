@@ -1,17 +1,17 @@
-"D:\UTFPR\EMBARCADOS\Tiva_IAR8\es_user\src\startup_ewarm.c"
+"D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\startup_ewarm.c"
 -std=c11
 -ferror-limit=0
 -fbracket-depth=512
 -I
-D:\UTFPR\EMBARCADOS\Tiva_IAR8\es_user\src
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src
 -I
-D:\UTFPR\EMBARCADOS\Tiva_IAR8\es_user\..\..\..
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\..\..
 -I
-D:\UTFPR\EMBARCADOS\Tiva_IAR8\es_user\..
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..
 -I
-D:\UTFPR\EMBARCADOS\Tiva_IAR8\es_user\..\inc
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\inc
 -I
-D:\UTFPR\EMBARCADOS\Tiva_IAR8\es_user\..\driverlib
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\driverlib
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\CMSIS\Core\Include
 -I
@@ -23,11 +23,11 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\inc\c
 -I
 D:\UTFPR
 -I
-D:\UTFPR\EMBARCADOS\Tiva_IAR8
+D:\UTFPR\EMBARCADOS\sistemas_embarcados
 -I
-D:\UTFPR\EMBARCADOS\Tiva_IAR8\inc
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\inc
 -I
-D:\UTFPR\EMBARCADOS\Tiva_IAR8\driverlib
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\driverlib
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\CMSIS\Core\Include
 -I

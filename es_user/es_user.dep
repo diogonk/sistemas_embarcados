@@ -5,83 +5,46 @@
     <configuration>
         <name>Debug</name>
         <outputs>
-            <file>$PROJ_DIR$\Debug\Exe\es_user.out</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\UART.pbi</file>
+            <file>$PROJ_DIR$\Debug\Obj\func_khz.o</file>
+            <file>$PROJ_DIR$\..\inc\hw_memmap.h</file>
+            <file>$PROJ_DIR$\..\driverlib\sysctl.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.o</file>
             <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
             <file>$PROJ_DIR$\Debug\Obj\es_user.pbd</file>
-            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
-            <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
-            <file>$PROJ_DIR$\Debug\Obj\UART.__cstat.et</file>
-            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
-            <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-            <file>$PROJ_DIR$\Debug\Obj\main.__cstat.et</file>
-            <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.pbi</file>
-            <file>$PROJ_DIR$\Debug\Obj\func_hz.o</file>
-            <file>$TOOLKIT_DIR$\lib\m7M_tls.a</file>
-            <file>$PROJ_DIR$\Debug\Obj\func_khz.o</file>
-            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-            <file>$PROJ_DIR$\..\driverlib\gpio.h</file>
-            <file>$PROJ_DIR$\..\inc\hw_types.h</file>
-            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
-            <file>$PROJ_DIR$\Debug\List\UART.lst</file>
-            <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.o</file>
-            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
-            <file>$PROJ_DIR$\Debug\Obj\main.o</file>
             <file>$PROJ_DIR$\..\inc\tm4c1294ncpdt.h</file>
-            <file>$PROJ_DIR$\Debug\Obj\UART.o</file>
-            <file>$PROJ_DIR$\Debug\List\es_user.map</file>
-            <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
-            <file>$PROJ_DIR$\Debug\List\startup_ewarm.lst</file>
-            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
-            <file>$PROJ_DIR$\Debug\Obj\UART.pbi</file>
-            <file>$PROJ_DIR$\..\driverlib\systick.h</file>
-            <file>$PROJ_DIR$\..\driverlib\sysctl.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
-            <file>$TOOLKIT_DIR$\config\linker\TexasInstruments\TM4C1294NC.icf</file>
-            <file>$PROJ_DIR$\..\inc\hw_nvic.h</file>
-            <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.__cstat.et</file>
-            <file>$PROJ_DIR$\..\inc\hw_memmap.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
-            <file>$PROJ_DIR$\Debug\List\main.lst</file>
-            <file>$PROJ_DIR$\..\driverlib\ewarm\Exe\driverlib.a</file>
-            <file>$PROJ_DIR$\src\func_khz.s</file>
-            <file>$PROJ_DIR$\src\func_hz.s</file>
+            <file>$PROJ_DIR$\..\driverlib\gpio.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.o</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$PROJ_DIR$\Debug\Exe\es_user.out</file>
+            <file>$PROJ_DIR$\Debug\Obj\func_hz.o</file>
             <file>$PROJ_DIR$\src\main.c</file>
-            <file>$PROJ_DIR$\src\startup_ewarm.c</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\UART.o</file>
+            <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.pbi</file>
+            <file>$PROJ_DIR$\src\func_hz.s</file>
+            <file>$PROJ_DIR$\..\inc\hw_nvic.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
             <file>$PROJ_DIR$\..\inc\UART.c</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+            <file>$PROJ_DIR$\..\inc\hw_types.h</file>
+            <file>$PROJ_DIR$\..\driverlib\systick.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$PROJ_DIR$\src\func_khz.s</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
             <file>$PROJ_DIR$\..\inc\UART.h</file>
+            <file>$PROJ_DIR$\src\startup_ewarm.c</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
         </outputs>
         <file>
-            <name>$PROJ_DIR$\Debug\Exe\es_user.out</name>
+            <name>[ROOT_NODE]</name>
             <outputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 24</file>
-                </tool>
-            </outputs>
-            <inputs>
-                <tool>
-                    <name>ILINK</name>
-                    <file> 33 39 10 12 21 19 23 17 25 11 4</file>
-                </tool>
-            </inputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\func_khz.s</name>
-            <outputs>
-                <tool>
-                    <name>AARM</name>
                     <file> 12</file>
-                </tool>
-            </outputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\func_hz.s</name>
-            <outputs>
-                <tool>
-                    <name>AARM</name>
-                    <file> 10</file>
                 </tool>
             </outputs>
         </file>
@@ -90,90 +53,75 @@
             <outputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 38 21</file>
+                    <file> 5</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 7</file>
-                </tool>
-                <tool>
-                    <name>__cstat</name>
-                    <file> 8</file>
+                    <file> 22</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
-                    <name>ICCARM</name>
-                    <file> 13 3 27 6 14 20 1 28 32 37 22 36 31 15 30 45</file>
-                </tool>
-                <tool>
                     <name>BICOMP</name>
-                    <file> 27 6 45 36 1 37 28 15 20 32 3 22 31 30 14 13</file>
+                    <file> 20 15 30 3 6 21 24 9 29 0 27 8 4 26 11 32</file>
                 </tool>
             </inputs>
         </file>
         <file>
-            <name>$PROJ_DIR$\src\startup_ewarm.c</name>
+            <name>$PROJ_DIR$\src\func_hz.s</name>
             <outputs>
                 <tool>
-                    <name>ICCARM</name>
-                    <file> 26 19</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 9</file>
-                </tool>
-                <tool>
-                    <name>__cstat</name>
-                    <file> 35</file>
+                    <name>AARM</name>
+                    <file> 13</file>
                 </tool>
             </outputs>
-            <inputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 3 27 6 14 20 1 34 16</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 20 16 27 1 34 6 14 3</file>
-                </tool>
-            </inputs>
         </file>
         <file>
             <name>$PROJ_DIR$\..\inc\UART.c</name>
             <outputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 18 23</file>
+                    <file> 16</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 29</file>
-                </tool>
-                <tool>
-                    <name>__cstat</name>
-                    <file> 5</file>
+                    <file> 1</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
-                    <name>ICCARM</name>
-                    <file> 3 27 6 14 20 1 45</file>
-                </tool>
-                <tool>
                     <name>BICOMP</name>
-                    <file> 27 45 6 14 3 20 1</file>
+                    <file> 20 30 15 11 27 29 6</file>
                 </tool>
             </inputs>
         </file>
         <file>
-            <name>[ROOT_NODE]</name>
+            <name>$PROJ_DIR$\src\func_khz.s</name>
             <outputs>
                 <tool>
-                    <name>ILINK</name>
-                    <file> 0 24</file>
+                    <name>AARM</name>
+                    <file> 2</file>
                 </tool>
             </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\startup_ewarm.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 10</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 17</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 29 25 20 6 19 15 11 27</file>
+                </tool>
+            </inputs>
         </file>
     </configuration>
     <configuration>
