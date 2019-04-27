@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\common\bin\cspybat" -f "D:\aulas\EL68E_SE\install_IAR8\Tiva_IAR8\driverlib\settings\driverlib.Debug.general.xcl" --backend -f "D:\aulas\EL68E_SE\install_IAR8\Tiva_IAR8\driverlib\settings\driverlib.Debug.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\UTFPR\EMBARCADOS\sistemas_embarcados\driverlib\settings\driverlib.Debug.general.xcl" --backend -f "D:\UTFPR\EMBARCADOS\sistemas_embarcados\driverlib\settings\driverlib.Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\common\bin\cspybat" -f "D:\aulas\EL68E_SE\install_IAR8\Tiva_IAR8\driverlib\settings\driverlib.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\aulas\EL68E_SE\install_IAR8\Tiva_IAR8\driverlib\settings\driverlib.Debug.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\UTFPR\EMBARCADOS\sistemas_embarcados\driverlib\settings\driverlib.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\UTFPR\EMBARCADOS\sistemas_embarcados\driverlib\settings\driverlib.Debug.driver.xcl" 
 }

@@ -1,12 +1,12 @@
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\bin\armproc.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\bin\armproc.dll" 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\bin\armsim2.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\bin\armsim2.dll" 
 
-"D:\aulas\EL68E_SE\install_IAR8\Tiva_IAR8\driverlib\ewarm\Exe\driverlib.out" 
+"D:\UTFPR\EMBARCADOS\sistemas_embarcados\driverlib\ewarm\Exe\driverlib.out" 
 
---plugin="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\bin\armbat.dll" 
+--plugin="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\bin\armbat.dll" 
 
---device_macro="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\config\debugger\TexasInstruments\TM4C129.dmac" 
+--device_macro="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\config\debugger\TexasInstruments\TM4C129.dmac" 
 
 
 
