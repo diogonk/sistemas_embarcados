@@ -5,7 +5,7 @@
         <LMIFTDIfoundProbes />
     </LMIFTDIDriver>
     <DebugChecksum>
-        <Checksum>3643097958</Checksum>
+        <Checksum>1853121868</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -102,7 +102,8 @@
         <Count>3</Count>
     </Breakpoints>
     <Aliases>
-        <Count>0</Count>
+        <A0>_ "D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\func_hz.s" ""</A0>
+        <Count>1</Count>
         <SuppressDialog>0</SuppressDialog>
     </Aliases>
 </settings>

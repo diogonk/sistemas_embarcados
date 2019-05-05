@@ -4,7 +4,11 @@
     <fileChecksum>2476611261</fileChecksum>
     <configuration>
         <name>Debug</name>
-        <outputs />
+        <outputs>
+            <file>$PROJ_DIR$\src\main.c</file>
+            <file>$PROJ_DIR$\src\startup_ewarm.c</file>
+            <file>$PROJ_DIR$\..\driverlib\ewarm\Exe\driverlib.a</file>
+        </outputs>
     </configuration>
     <configuration>
         <name>Release</name>

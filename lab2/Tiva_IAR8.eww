@@ -13,6 +13,9 @@
         <path>$WS_DIR$\es_user\es_user.ewp</path>
     </project>
     <project>
+        <path>$WS_DIR$\frequency_counter\frequency_counter.ewp</path>
+    </project>
+    <project>
         <path>$WS_DIR$\grlib\grlib.ewp</path>
     </project>
     <batchBuild />
