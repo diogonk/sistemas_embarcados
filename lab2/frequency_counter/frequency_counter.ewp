@@ -2076,13 +2076,22 @@
         </settings>
     </configuration>
     <file>
+        <name>$PROJ_DIR$\src\definitions.h</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\..\driverlib\ewarm\Exe\driverlib.a</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\src\gpioFunctions.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\src\main.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\src\startup_ewarm.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\src\timerFunctions.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\src\UART.c</name>

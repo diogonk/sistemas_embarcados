@@ -274,3 +274,8 @@ char character;
   }
   *bufPt = 0;
 }
+
+void OutCRLF(void){
+  UART_OutChar(CR);
+  UART_OutChar(LF);
+}

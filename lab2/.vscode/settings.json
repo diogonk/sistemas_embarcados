@@ -1,5 +1,12 @@
 {
     "files.associations": {
-        "interrupt.h": "c"
+        "interrupt.h": "c",
+        "systick.h": "c",
+        "pin_map.h": "c",
+        "stdbool.h": "c",
+        "tm4c1294ncpdt.h": "c",
+        "gpiofunctions.h": "c",
+        "timerfunctions.h": "c",
+        "stdint.h": "c"
     }
 }
