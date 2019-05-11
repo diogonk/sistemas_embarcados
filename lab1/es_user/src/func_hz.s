@@ -20,10 +20,10 @@ count_pulse_hz
   MOV R3, #0        ;time acquire
   LDR R4, =GPIO_PORTK_AHB_DATA_BITS_R				;Carrega o valor do offset do data register
   ADD R4, R4, #0x04	    ;Soma ao offset o endereço do bit0 para leitura amigavel [BIT0]
-  //MOV  R5, #0xE1C0    ; Em 8 ciclos de máquina, 15.000.000 de leitura podem ser realizadas 
-  //MOVT R5, #0x00E4    ; considerando um PLL de 120MHz
-  MOV  R5, #0xC6C0    ; Em 8 ciclos de máquina, 3.000.000 de leitura podem ser realizadas 
-  MOVT R5, #0x002D    ; considerando um PLL de 24MHz
+  MOV  R5, #0xE1C0    ; Em 8 ciclos de máquina, 15.000.000 de leitura podem ser realizadas 
+  MOVT R5, #0x00E4    ; considerando um PLL de 120MHz
+  //MOV  R5, #0xC6C0    ; Em 8 ciclos de máquina, 3.000.000 de leitura podem ser realizadas 
+  //MOVT R5, #0x002D    ; considerando um PLL de 24MHz
   LDR R1, [R4]      ;Last State
 
 NEWSAMPLING

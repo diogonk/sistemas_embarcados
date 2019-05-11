@@ -1,17 +1,17 @@
-"D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\main.c"
+"D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\src\main.c"
 -std=c11
 -ferror-limit=0
 -fbracket-depth=512
 -I
-D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\src
 -I
-D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\..\..
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\..\..\..
 -I
-D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\..
 -I
-D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\inc
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\..\inc
 -I
-D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\driverlib
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\..\driverlib
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\CMSIS\Core\Include
 -I
@@ -21,13 +21,13 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\inc\c
 -I
-D:\UTFPR
+D:\UTFPR\EMBARCADOS
 -I
-D:\UTFPR\EMBARCADOS\sistemas_embarcados
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1
 -I
-D:\UTFPR\EMBARCADOS\sistemas_embarcados\inc
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\inc
 -I
-D:\UTFPR\EMBARCADOS\sistemas_embarcados\driverlib
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\driverlib
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\CMSIS\Core\Include
 -I

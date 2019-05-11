@@ -1,37 +1,39 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         07/Apr/2019  22:38:09
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         11/May/2019  09:23:00
 # Copyright 1999-2019 IAR Systems AB.
 #
 #    Cpu mode     =  
 #    Endian       =  little
-#    Source file  =  D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\main.c
+#    Source file  =  
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\src\main.c
 #    Command line =  
-#        -f C:\Users\Diogo\AppData\Local\Temp\EW6A1F.tmp
-#        (D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\main.c -D ewarm
-#        -D PART_TM4C1294NCPDT -lcN
-#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\List -o
-#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\Obj --no_cse
-#        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
-#        --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=None
-#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        -f C:\Users\Diogo\AppData\Local\Temp\EWE89F.tmp
+#        (D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\src\main.c -D
+#        ewarm -D PART_TM4C1294NCPDT -lcN
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\Debug\List -o
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\Debug\Obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M4 -e --fpu=None --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
 #        8.2\arm\inc\c\DLib_Config_Normal.h" -I
-#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\..\..\ -I
-#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\ -I
-#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\inc\ -I
-#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\..\driverlib\ -Ol -I
-#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\..\..\..\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\..\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\..\inc\ -I
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\..\driverlib\ -Ol
+#        -I "C:\Program Files (x86)\IAR Systems\Embedded Workbench
 #        8.2\arm\CMSIS\Core\Include\" -I "C:\Program Files (x86)\IAR
 #        Systems\Embedded Workbench 8.2\arm\CMSIS\DSP\Include\")
 #    Locale       =  C
 #    List file    =  
-#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\List\main.lst
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\Debug\List\main.lst
 #    Object file  =  
-#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\Debug\Obj\main.o
+#        D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\Debug\Obj\main.o
 #
 ###############################################################################
 
-D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\main.c
+D:\UTFPR\EMBARCADOS\sistemas_embarcados\lab1\es_user\src\main.c
       1          #include <stdbool.h>
       2          #include <stdint.h>
       3          #include <string.h>
@@ -111,7 +113,7 @@ D:\UTFPR\EMBARCADOS\sistemas_embarcados\es_user\src\main.c
      77                                                        SYSCTL_OSC_MAIN |
      78                                                        SYSCTL_USE_PLL |
      79                                                        SYSCTL_CFG_VCO_480),
-     80                                                        24000000); // PLL em 24MHz
+     80                                                        120000000); // PLL em 24MHz
      81          
      82            //SysTickEnable();
      83            //SysTickPeriodSet(2400000); // f = 5Hz

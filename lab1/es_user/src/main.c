@@ -77,7 +77,7 @@ void main(void)
                                               SYSCTL_OSC_MAIN |
                                               SYSCTL_USE_PLL |
                                               SYSCTL_CFG_VCO_480),
-                                              24000000); // PLL em 24MHz
+                                              120000000); // PLL em 24MHz
 
   //SysTickEnable();
   //SysTickPeriodSet(2400000); // f = 5Hz
