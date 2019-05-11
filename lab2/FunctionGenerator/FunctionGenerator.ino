@@ -22,6 +22,11 @@ int a;
 void setup() {
   attachInterrupt(button0, wave0Select, RISING);  // Interrupt attached to the button connected to pin 2
     //Initialize serial and wait for port to open:
+  //pinMode(generatorPinOut, OUTPUT);
+  //TIMSK2 = (TIMSK2 & B11111110) | 0x01;
+  //TCCR2B = (TCCR2B & B11111000) | 0x07;
+  //OCR2A = 10;
+  //OCR2A = 20;
   Serial.begin(9600);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -32,14 +37,13 @@ void setup() {
 }
 
 void loop() {
-  a = 0;
-  a = a+1;
+
 }
 
 // function hooked to the interrupt on digital pin 2
 void wave0Select() {
   noTone(generatorPinOut);
-  sample = map(analogRead(A0), 0, 4095, 1, 65535);
+  sample = map(analogRead(A0), 0, 1023, 1, 65000);
   tone(generatorPinOut, sample);
   Serial.print("Frequency Generator: ");
   Serial.println(sample);
