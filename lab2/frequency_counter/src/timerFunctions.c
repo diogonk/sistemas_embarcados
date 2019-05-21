@@ -20,6 +20,7 @@
 extern uint32_t timerValue;
 extern uint32_t lastValue;
 extern uint16_t newAcquire;
+extern uint16_t FrequencyDivider;
 
 void SysTick_Handler(void){
   timerValue = TIMER0_TAV_R; //Read Counter
@@ -54,11 +55,23 @@ void changesysTick(uint8_t settingsValue)
   {
     if(settingsValue == 0x01)
     {
-        SysTickPeriodSet(MICROFREQUENCY/FrequencyDivider);
+      uint32_t ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |
+                                              SYSCTL_OSC_MAIN |
+                                              SYSCTL_USE_PLL |
+                                              SYSCTL_CFG_VCO_480),
+                                              10000000);
+      FrequencyDivider = 1;
+      SysTickPeriodSet(10000000/FrequencyDivider);
     }
     else if(settingsValue == 0x02)
     {
-      SysTickPeriodSet(MICROFREQUENCY/(FrequencyDivider*1000));
+      uint32_t ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |
+                                              SYSCTL_OSC_MAIN |
+                                              SYSCTL_USE_PLL |
+                                              SYSCTL_CFG_VCO_480),
+                                              120000000);
+      FrequencyDivider = 8;
+      SysTickPeriodSet(120000000/FrequencyDivider);
     }
   }
 }

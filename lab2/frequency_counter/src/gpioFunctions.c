@@ -15,6 +15,8 @@
 #include "UART.h"
 
 
+extern uint16_t FrequencyDivider;
+
 void buttonsInit(void)
 {
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ); // Habilita GPIO J (push-button SW1 = PJ0, push-button SW2 = PJ1)
@@ -35,8 +37,10 @@ uint8_t readButtons(void)
 }
 void writeValues(uint32_t readCounter, uint32_t lastCounter)
 {
+    UART_OutChar(FrequencyDivider==1? 'L':'H'); //L = PLL LOW(Hz) | H = PLL HIGH(kHZ)
+    UART_OutChar(':');
     UART_OutUDec(readCounter>=lastCounter?
-    (readCounter-lastCounter)*FrequencyDivider : 
+    (readCounter-lastCounter)*FrequencyDivider :
     ((MAXCOUNTER-lastCounter)+readCounter)*FrequencyDivider);
     OutCRLF();
 }

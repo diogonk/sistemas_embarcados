@@ -12,7 +12,7 @@
 uint32_t timerValue;
 uint32_t lastValue;
 uint16_t newAcquire = 0;
-
+uint16_t FrequencyDivider = 1;
 
 
 void systemStart()
@@ -21,9 +21,9 @@ void systemStart()
                                             SYSCTL_OSC_MAIN |
                                             SYSCTL_USE_PLL |
                                             SYSCTL_CFG_VCO_480),
-                                            MICROFREQUENCY);
+                                            10000000);
     SysTickEnable();
-    SysTickPeriodSet(MICROFREQUENCY/FrequencyDivider);
+    SysTickPeriodSet(10000000/FrequencyDivider);
     buttonsInit();
     UART_Init();
     timerCounterInit();
