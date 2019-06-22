@@ -37,10 +37,9 @@ uint8_t readButtons(void)
 }
 void writeValues(uint32_t readCounter, uint32_t lastCounter)
 {
-    UART_OutChar(FrequencyDivider==1? 'L':'H'); //L = PLL LOW(Hz) | H = PLL HIGH(kHZ)
-    UART_OutChar(':');
+    UART_OutString(FrequencyDivider==1? "Hz:":"kHz:"); //L = PLL LOW(Hz) | H = PLL HIGH(kHZ)
     UART_OutUDec(readCounter>=lastCounter?
-    (readCounter-lastCounter)*FrequencyDivider :
-    ((MAXCOUNTER-lastCounter)+readCounter)*FrequencyDivider);
+    (readCounter-lastCounter) :
+    ((MAXCOUNTER-lastCounter)+readCounter));
     OutCRLF();
 }

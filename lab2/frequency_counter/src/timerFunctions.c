@@ -59,9 +59,9 @@ void changesysTick(uint8_t settingsValue)
                                               SYSCTL_OSC_MAIN |
                                               SYSCTL_USE_PLL |
                                               SYSCTL_CFG_VCO_480),
-                                              10000000);
+                                              FREQMIN);
       FrequencyDivider = 1;
-      SysTickPeriodSet(10000000/FrequencyDivider);
+      SysTickPeriodSet(FREQMIN);
     }
     else if(settingsValue == 0x02)
     {
@@ -69,9 +69,9 @@ void changesysTick(uint8_t settingsValue)
                                               SYSCTL_OSC_MAIN |
                                               SYSCTL_USE_PLL |
                                               SYSCTL_CFG_VCO_480),
-                                              120000000);
+                                              FREQMAX);
       FrequencyDivider = 8;
-      SysTickPeriodSet(120000000/FrequencyDivider);
+      SysTickPeriodSet(FREQMAX/1000);
     }
   }
 }

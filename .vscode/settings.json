@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.template": "kamailio",
+        "driverleds.h": "c",
+        "hw_memmap.h": "c",
+        "uart.h": "c",
+        "cmsis_os2.h": "c",
+        "hw_uart.h": "c",
+        "elevatorfunctions.h": "c"
+    }
+}

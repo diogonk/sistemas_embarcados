@@ -21,9 +21,9 @@ void systemStart()
                                             SYSCTL_OSC_MAIN |
                                             SYSCTL_USE_PLL |
                                             SYSCTL_CFG_VCO_480),
-                                            10000000);
+                                            FREQMIN);
     SysTickEnable();
-    SysTickPeriodSet(10000000/FrequencyDivider);
+    SysTickPeriodSet(FREQMIN/FrequencyDivider);
     buttonsInit();
     UART_Init();
     timerCounterInit();
@@ -33,8 +33,8 @@ void systemStart()
 
 void main(void){
   uint8_t settingsValue;
-  uint8_t delay = 0;
   systemStart();
+  
   while(1){
     settingsValue = readButtons();
     if(settingsValue != 0)
@@ -43,11 +43,7 @@ void main(void){
     if( newAcquire == 1)
     {
       newAcquire = 0;
-      if(delay++>=FrequencyDivider-1)
-      {
-        writeValues(timerValue, lastValue);
-        delay=0;  
-      }
+      writeValues(timerValue, lastValue);
       lastValue = timerValue;
     }
   } // while
