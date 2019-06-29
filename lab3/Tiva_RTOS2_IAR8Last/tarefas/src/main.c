@@ -40,9 +40,9 @@ void main(void){
   elevatorManangerThreads[1] = osThreadNew(elevatorMananger, (void *)&elevators[1], NULL);
   elevatorManangerThreads[2] = osThreadNew(elevatorMananger, (void *)&elevators[2], NULL);
 
-  elevators[0].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorControllerThreads[0], NULL);
-  elevators[1].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorControllerThreads[1], NULL);
-  elevators[2].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorControllerThreads[2], NULL);
+  elevators[0].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorManangerThreads[0], NULL);
+  elevators[1].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorManangerThreads[1], NULL);
+  elevators[2].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorManangerThreads[2], NULL);
   
   if(osKernelGetState() == osKernelReady)
     osKernelStart();

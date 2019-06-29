@@ -12792,13 +12792,27 @@
     "scope": null
   },
   {
+    "ID": "c:@F@findNextFloor",
+    "What": "Function",
+    "defdec": "Dec",
+    "display": "void findNextFloor(elevator_t *, uint16_t)",
+    "location": {
+      "column": "6",
+      "line": "33",
+      "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
+    },
+    "name": "findNextFloor",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
     "ID": "c:@F@elevatorController",
     "What": "Function",
     "defdec": "Def",
     "display": "void elevatorController(void *)",
     "location": {
       "column": "6",
-      "line": "33",
+      "line": "35",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "elevatorController",
@@ -12806,13 +12820,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@651@F@elevatorController@elevator",
+    "ID": "c:elevatorfunctions.c@718@F@elevatorController@elevator",
     "What": "Variable",
     "defdec": "Def",
     "display": "elevator",
     "location": {
       "column": "17",
-      "line": "36",
+      "line": "38",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "elevator",
@@ -12820,13 +12834,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@858@F@elevatorController@strTx",
+    "ID": "c:elevatorfunctions.c@925@F@elevatorController@strTx",
     "What": "Variable",
     "defdec": "Def",
     "display": "strTx",
     "location": {
       "column": "10",
-      "line": "42",
+      "line": "44",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "strTx",
@@ -12840,7 +12854,7 @@
     "display": "void elevatorMananger(void *)",
     "location": {
       "column": "6",
-      "line": "126",
+      "line": "118",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "elevatorMananger",
@@ -12848,13 +12862,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4039@F@elevatorMananger@msgRcv",
+    "ID": "c:elevatorfunctions.c@3691@F@elevatorMananger@msgRcv",
     "What": "Variable",
     "defdec": "Def",
     "display": "msgRcv",
     "location": {
       "column": "10",
-      "line": "128",
+      "line": "120",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "msgRcv",
@@ -12862,13 +12876,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4074@F@elevatorMananger@msgPrior",
+    "ID": "c:elevatorfunctions.c@3726@F@elevatorMananger@msgPrior",
     "What": "Variable",
     "defdec": "Def",
     "display": "msgPrior",
     "location": {
       "column": "13",
-      "line": "129",
+      "line": "121",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "msgPrior",
@@ -12876,13 +12890,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4097@F@elevatorMananger@elevator",
+    "ID": "c:elevatorfunctions.c@3749@F@elevatorMananger@elevator",
     "What": "Variable",
     "defdec": "Def",
     "display": "elevator",
     "location": {
       "column": "17",
-      "line": "130",
+      "line": "122",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "elevator",
@@ -12890,13 +12904,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4144@F@elevatorMananger@floortoStop",
+    "ID": "c:elevatorfunctions.c@3796@F@elevatorMananger@floortoStop",
     "What": "Variable",
     "defdec": "Def",
     "display": "floortoStop",
     "location": {
       "column": "14",
-      "line": "131",
+      "line": "123",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "floortoStop",
@@ -12904,13 +12918,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4175@F@elevatorMananger@internalReq",
+    "ID": "c:elevatorfunctions.c@3827@F@elevatorMananger@internalReq",
     "What": "Variable",
     "defdec": "Def",
     "display": "internalReq",
     "location": {
       "column": "14",
-      "line": "132",
+      "line": "124",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "internalReq",
@@ -12918,13 +12932,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4206@F@elevatorMananger@externalReqDown",
+    "ID": "c:elevatorfunctions.c@3858@F@elevatorMananger@externalReqDown",
     "What": "Variable",
     "defdec": "Def",
     "display": "externalReqDown",
     "location": {
       "column": "14",
-      "line": "133",
+      "line": "125",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "externalReqDown",
@@ -12932,13 +12946,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4241@F@elevatorMananger@floorStatus",
+    "ID": "c:elevatorfunctions.c@3893@F@elevatorMananger@floorStatus",
     "What": "Variable",
     "defdec": "Def",
     "display": "floorStatus",
     "location": {
       "column": "14",
-      "line": "134",
+      "line": "126",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "floorStatus",
@@ -12946,13 +12960,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4268@F@elevatorMananger@externalReqUp",
+    "ID": "c:elevatorfunctions.c@3920@F@elevatorMananger@externalReqUp",
     "What": "Variable",
     "defdec": "Def",
     "display": "externalReqUp",
     "location": {
       "column": "14",
-      "line": "135",
+      "line": "127",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "externalReqUp",
@@ -12960,13 +12974,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4301@F@elevatorMananger@newRequest",
+    "ID": "c:elevatorfunctions.c@3953@F@elevatorMananger@newRequest",
     "What": "Variable",
     "defdec": "Def",
     "display": "newRequest",
     "location": {
       "column": "9",
-      "line": "136",
+      "line": "128",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "newRequest",
@@ -12974,16 +12988,58 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@4322@F@elevatorMananger@floorUpdate",
+    "ID": "c:elevatorfunctions.c@3974@F@elevatorMananger@floorUpdate",
     "What": "Variable",
     "defdec": "Def",
     "display": "floorUpdate",
     "location": {
       "column": "13",
-      "line": "137",
+      "line": "129",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "floorUpdate",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@findNextFloor",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void findNextFloor(elevator_t *, uint16_t)",
+    "location": {
+      "column": "6",
+      "line": "278",
+      "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
+    },
+    "name": "findNextFloor",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:elevatorfunctions.c@9814@F@findNextFloor@floorUpdate",
+    "What": "Variable",
+    "defdec": "Def",
+    "display": "floorUpdate",
+    "location": {
+      "column": "13",
+      "line": "280",
+      "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
+    },
+    "name": "floorUpdate",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:elevatorfunctions.c@9840@F@findNextFloor@floorStatus",
+    "What": "Variable",
+    "defdec": "Def",
+    "display": "floorStatus",
+    "location": {
+      "column": "14",
+      "line": "281",
+      "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
+    },
+    "name": "floorStatus",
     "origin": "project_file",
     "scope": null
   },
@@ -12994,7 +13050,7 @@
     "display": "void timerElevatorWaitStateCallback(void *)",
     "location": {
       "column": "6",
-      "line": "364",
+      "line": "377",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "timerElevatorWaitStateCallback",
@@ -13002,13 +13058,13 @@
     "scope": null
   },
   {
-    "ID": "c:elevatorfunctions.c@13393@F@timerElevatorWaitStateCallback@elevatorThread",
+    "ID": "c:elevatorfunctions.c@13045@F@timerElevatorWaitStateCallback@elevatorThread",
     "What": "Variable",
     "defdec": "Def",
     "display": "elevatorThread",
     "location": {
       "column": "19",
-      "line": "366",
+      "line": "379",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.c"
     },
     "name": "elevatorThread",
@@ -16973,27 +17029,13 @@
         "scope": "elevator_t"
       },
       {
-        "ID": "c:@S@elevator_t@FI@emptyReq",
-        "What": "FieldDecl",
-        "defdec": "Def",
-        "display": "emptyReq",
-        "location": {
-          "column": "13",
-          "line": "11",
-          "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
-        },
-        "name": "emptyReq",
-        "origin": "user_include",
-        "scope": "elevator_t"
-      },
-      {
         "ID": "c:@S@elevator_t@FI@status",
         "What": "FieldDecl",
         "defdec": "Def",
         "display": "status",
         "location": {
           "column": "13",
-          "line": "12",
+          "line": "11",
           "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
         },
         "name": "status",
@@ -17007,7 +17049,7 @@
         "display": "next_status",
         "location": {
           "column": "13",
-          "line": "13",
+          "line": "12",
           "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
         },
         "name": "next_status",
@@ -17021,7 +17063,7 @@
         "display": "doors",
         "location": {
           "column": "13",
-          "line": "14",
+          "line": "13",
           "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
         },
         "name": "doors",
@@ -17035,7 +17077,7 @@
         "display": "identifier",
         "location": {
           "column": "19",
-          "line": "15",
+          "line": "14",
           "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
         },
         "name": "identifier",
@@ -17049,7 +17091,7 @@
         "display": "timerWaitState",
         "location": {
           "column": "17",
-          "line": "16",
+          "line": "15",
           "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
         },
         "name": "timerWaitState",
@@ -17063,7 +17105,7 @@
         "display": "requestMsg",
         "location": {
           "column": "24",
-          "line": "17",
+          "line": "16",
           "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
         },
         "name": "requestMsg",
@@ -17077,7 +17119,7 @@
         "display": "struct elevator_t",
         "location": {
           "column": "3",
-          "line": "18",
+          "line": "17",
           "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
         },
         "name": "elevator_t",
@@ -17096,7 +17138,7 @@
     "display": "void elevatorController(void *)",
     "location": {
       "column": "6",
-      "line": "20",
+      "line": "19",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
     },
     "name": "elevatorController",
@@ -17110,7 +17152,7 @@
     "display": "void elevatorController(void *)",
     "location": {
       "column": "6",
-      "line": "20",
+      "line": "19",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
     },
     "name": "elevatorController",
@@ -17124,7 +17166,7 @@
     "display": "void elevatorMananger(void *)",
     "location": {
       "column": "6",
-      "line": "21",
+      "line": "20",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
     },
     "name": "elevatorMananger",
@@ -17138,7 +17180,7 @@
     "display": "void elevatorMananger(void *)",
     "location": {
       "column": "6",
-      "line": "21",
+      "line": "20",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
     },
     "name": "elevatorMananger",
@@ -17152,7 +17194,7 @@
     "display": "void timerElevatorWaitStateCallback(void *)",
     "location": {
       "column": "6",
-      "line": "22",
+      "line": "21",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
     },
     "name": "timerElevatorWaitStateCallback",
@@ -17166,7 +17208,7 @@
     "display": "void timerElevatorWaitStateCallback(void *)",
     "location": {
       "column": "6",
-      "line": "22",
+      "line": "21",
       "path": "D:\\UTFPR\\EMBARCADOS\\sistemas_embarcados\\lab3\\Tiva_RTOS2_IAR8Last\\tarefas\\src\\elevatorfunctions.h"
     },
     "name": "timerElevatorWaitStateCallback",

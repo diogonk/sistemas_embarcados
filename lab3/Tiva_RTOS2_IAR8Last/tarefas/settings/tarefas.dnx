@@ -31,15 +31,6 @@
     <BreakpointUsageDialog>
         <Placement>_ 1827 223 2272 506</Placement>
     </BreakpointUsageDialog>
-    <TermIOLog>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-    </TermIOLog>
-    <LogFile>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-        <Category>_ 0</Category>
-    </LogFile>
     <CallStackLog>
         <Enabled>0</Enabled>
     </CallStackLog>
@@ -52,9 +43,18 @@
     <Breakpoints>
         <Bp0>_ "STD_CODE" "{$PROJ_DIR$\src\uart_device.c}.50.5" 0 0 0 0 "" 0 ""</Bp0>
         <Bp1>_ "STD_CODE" "{$PROJ_DIR$\src\RTX_Config.c}.42.3" 1 0 0 0 "" 0 ""</Bp1>
-        <Bp2>_ "STD_CODE" "{$PROJ_DIR$\src\elevatorfunctions.c}.108.13" 1 0 0 0 "" 0 ""</Bp2>
+        <Bp2>_ "STD_CODE" "{$PROJ_DIR$\src\elevatorfunctions.c}.110.13" 1 0 0 0 "" 0 ""</Bp2>
         <Count>3</Count>
     </Breakpoints>
+    <TermIOLog>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+    </TermIOLog>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category>_ 0</Category>
+    </LogFile>
     <Aliases>
         <Count>0</Count>
         <SuppressDialog>0</SuppressDialog>

@@ -5,67 +5,187 @@
     <configuration>
         <name>Debug</name>
         <outputs>
+            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\mpu_armv7.h</file>
+            <file>$PROJ_DIR$\src\driverleds.h</file>
+            <file>$PROJ_DIR$\ewarm\Exe\prodcons.bin</file>
+            <file>$PROJ_DIR$\ewarm\Obj\main.o</file>
+            <file>$PROJ_DIR$\ewarm\Obj\startup_tm4c1294.o</file>
+            <file>$PROJ_DIR$\..\driverlib\gpio.h</file>
+            <file>$PROJ_DIR$\src\system_tm4c1294.h</file>
+            <file>$PROJ_DIR$\ewarm\Obj\driverleds.pbi</file>
+            <file>$PROJ_DIR$\ewarm\Obj\driverleds.o</file>
+            <file>$PROJ_DIR$\ewarm\Obj\system_tm4c1294.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$PROJ_DIR$\ewarm\Exe\prodcons.out</file>
+            <file>$TOOLKIT_DIR$\lib\m7M_tls.a</file>
+            <file>$TOOLKIT_DIR$\inc\c\iccarm_builtin.h</file>
+            <file>$PROJ_DIR$\..\CMSIS\RTOS2\RTX\Include\rtx_os.h</file>
+            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\cmsis_version.h</file>
+            <file>$PROJ_DIR$\..\CMSIS\RTOS2\RTX\Include\rtx_evr.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+            <file>$PROJ_DIR$\..\inc\hw_memmap.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$PROJ_DIR$\src\RTX_Config.h</file>
+            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\cmsis_compiler.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\cmsis_iccarm.h</file>
+            <file>$PROJ_DIR$\ewarm\Obj\RTX_Config.o</file>
+            <file>$PROJ_DIR$\ewarm\Obj\rtx_lib.pbi</file>
+            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\core_cm4.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$PROJ_DIR$\ewarm\Obj\system_tm4c1294.o</file>
+            <file>$PROJ_DIR$\..\CMSIS\RTOS2\Include\cmsis_os2.h</file>
             <file>$PROJ_DIR$\src\driverleds.c</file>
+            <file>$PROJ_DIR$\src\RTX_Config.c</file>
+            <file>$PROJ_DIR$\..\driverlib\sysctl.h</file>
+            <file>$PROJ_DIR$\ewarm\Obj\rtx_lib.o</file>
+            <file>$PROJ_DIR$\..\Device\ARM\ARMCM4\Include\ARMCM4_FP.h</file>
+            <file>$PROJ_DIR$\ewarm\Obj\main.pbi</file>
+            <file>$TOOLKIT_DIR$\config\linker\TexasInstruments\TM4C1294NC.icf</file>
+            <file>$PROJ_DIR$\..\CMSIS\RTOS2\RTX\Library\IAR\RTX_CM4F.a</file>
+            <file>$PROJ_DIR$\ewarm\List\prodcons.map</file>
+            <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+            <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+            <file>$PROJ_DIR$\..\driverlib\ewarm\Exe\driverlib.a</file>
+            <file>$PROJ_DIR$\src\system_tm4c1294.c</file>
+            <file>$PROJ_DIR$\src\main.c</file>
+            <file>$PROJ_DIR$\src\rtx_lib.c</file>
+            <file>$PROJ_DIR$\src\startup_tm4c1294.s</file>
             <file>$PROJ_DIR$\ewarm\Obj\RTX_Config.pbi</file>
             <file>$PROJ_DIR$\..\Device\ARM\ARMCM4\Include\system_ARMCM4.h</file>
             <file>$PROJ_DIR$\..\CMSIS\RTOS2\RTX\Library\IAR\IDE\RTE_Components.h</file>
-            <file>$PROJ_DIR$\ewarm\List\prodcons.map</file>
-            <file>$PROJ_DIR$\..\CMSIS\RTOS2\RTX\Library\IAR\RTX_CM4F.a</file>
-            <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
-            <file>$PROJ_DIR$\src\rtx_lib.c</file>
-            <file>$PROJ_DIR$\src\startup_tm4c1294.s</file>
-            <file>$PROJ_DIR$\..\CMSIS\RTOS2\Include\cmsis_os2.h</file>
-            <file>$PROJ_DIR$\src\main.c</file>
-            <file>$PROJ_DIR$\src\system_tm4c1294.c</file>
-            <file>$PROJ_DIR$\..\driverlib\sysctl.h</file>
-            <file>$PROJ_DIR$\ewarm\Obj\rtx_lib.o</file>
-            <file>$PROJ_DIR$\..\driverlib\ewarm\Exe\driverlib.a</file>
-            <file>$PROJ_DIR$\..\Device\ARM\ARMCM4\Include\ARMCM4_FP.h</file>
-            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
-            <file>$PROJ_DIR$\ewarm\Obj\main.pbi</file>
-            <file>$TOOLKIT_DIR$\config\linker\TexasInstruments\TM4C1294NC.icf</file>
-            <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
-            <file>$PROJ_DIR$\ewarm\Exe\prodcons.bin</file>
-            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\core_cm4.h</file>
-            <file>$PROJ_DIR$\src\RTX_Config.c</file>
-            <file>$PROJ_DIR$\ewarm\Obj\startup_tm4c1294.o</file>
-            <file>$PROJ_DIR$\ewarm\Obj\rtx_lib.pbi</file>
-            <file>$TOOLKIT_DIR$\lib\m7M_tls.a</file>
-            <file>$PROJ_DIR$\ewarm\Obj\driverleds.pbi</file>
-            <file>$PROJ_DIR$\..\CMSIS\RTOS2\RTX\Include\rtx_os.h</file>
-            <file>$PROJ_DIR$\..\driverlib\gpio.h</file>
-            <file>$PROJ_DIR$\src\system_tm4c1294.h</file>
-            <file>$PROJ_DIR$\src\driverleds.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
-            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\cmsis_compiler.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
-            <file>$PROJ_DIR$\ewarm\Obj\system_tm4c1294.o</file>
-            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-            <file>$PROJ_DIR$\src\RTX_Config.h</file>
-            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\mpu_armv7.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\iccarm_builtin.h</file>
-            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\cmsis_iccarm.h</file>
-            <file>$PROJ_DIR$\ewarm\Obj\main.o</file>
-            <file>$PROJ_DIR$\ewarm\Obj\driverleds.o</file>
-            <file>$PROJ_DIR$\ewarm\Obj\RTX_Config.o</file>
-            <file>$PROJ_DIR$\ewarm\Obj\system_tm4c1294.pbi</file>
-            <file>$PROJ_DIR$\ewarm\Exe\prodcons.out</file>
-            <file>$TOOLKIT_DIR$\CMSIS\Core\Include\cmsis_version.h</file>
-            <file>$PROJ_DIR$\..\CMSIS\RTOS2\RTX\Include\rtx_evr.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
-            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
-            <file>$PROJ_DIR$\..\inc\hw_memmap.h</file>
             <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
             <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
         </outputs>
+        <file>
+            <name>$PROJ_DIR$\ewarm\Exe\prodcons.out</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 40</file>
+                </tool>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 2</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 38 8 44 3 39 25 35 4 30 42 43 12 41</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 40 11</file>
+                </tool>
+            </outputs>
+        </file>
         <file>
             <name>$PROJ_DIR$\src\driverleds.c</name>
             <outputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 43</file>
+                    <file> 8</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 7</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 17 19 53 28 20 10 29 18 34 5 1</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 53 5 29 18 10 19 34 1 28 20 17</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\RTX_Config.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 25</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 49</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 22 19 53 28 20 10 29 24 13 14 23 52 31</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 28 29 10 13 31 53 14 19 24 20 52 22 23</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\system_tm4c1294.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 30</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 9</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 17 19 53 28 20 10 29 34 36 27 15 22 24 13 0 50</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 27 36 28 20 34 19 13 53 10 29 50 15 22 0 24 17</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\main.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 3</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 37</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 6 19 53 28 20 10 29 1 31 23 52</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 53 20 23 28 31 1 19 52 6 10 29</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\rtx_lib.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 35</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
@@ -75,34 +195,11 @@
             <inputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 50 34 53 31 37 49 35 51 12 28 30</file>
+                    <file> 22 19 53 28 20 10 29 24 13 21 14 23 52 31 16 51</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 53 28 35 51 49 34 12 30 31 37 50</file>
-                </tool>
-            </inputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\rtx_lib.c</name>
-            <outputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 13</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 24</file>
-                </tool>
-            </outputs>
-            <inputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 32 34 53 31 37 49 35 41 40 38 27 33 52 9 48 3</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 53 37 34 31 27 41 9 38 48 49 35 40 33 32 52 3</file>
+                    <file> 53 20 19 28 14 24 31 21 16 10 29 13 23 22 52 51</file>
                 </tool>
             </inputs>
         </file>
@@ -111,106 +208,9 @@
             <outputs>
                 <tool>
                     <name>AARM</name>
-                    <file> 23</file>
-                </tool>
-            </outputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\main.c</name>
-            <outputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 42</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 17</file>
-                </tool>
-            </outputs>
-            <inputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 29 34 53 31 37 49 35 30 9 33 52</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 53 37 33 31 9 30 34 52 29 49 35</file>
-                </tool>
-            </inputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\system_tm4c1294.c</name>
-            <outputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 36</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 45</file>
-                </tool>
-            </outputs>
-            <inputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 50 34 53 31 37 49 35 12 15 21 47 32 41 40 39 2</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 21 15 31 37 12 34 40 53 49 35 2 47 32 39 41 50</file>
-                </tool>
-            </inputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\RTX_Config.c</name>
-            <outputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 44</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 1</file>
-                </tool>
-            </outputs>
-            <inputs>
-                <tool>
-                    <name>ICCARM</name>
-                    <file> 32 34 53 31 37 49 35 41 40 27 33 52 9</file>
-                </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 31 35 49 40 9 53 27 34 41 37 52 32 33</file>
-                </tool>
-            </inputs>
-        </file>
-        <file>
-            <name>[ROOT_NODE]</name>
-            <outputs>
-                <tool>
-                    <name>ILINK</name>
-                    <file> 4 46</file>
-                </tool>
-            </outputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\ewarm\Exe\prodcons.out</name>
-            <outputs>
-                <tool>
-                    <name>OBJCOPY</name>
-                    <file> 20</file>
-                </tool>
-                <tool>
-                    <name>ILINK</name>
                     <file> 4</file>
                 </tool>
             </outputs>
-            <inputs>
-                <tool>
-                    <name>ILINK</name>
-                    <file> 18 43 14 42 5 44 13 23 36 16 19 25 6</file>
-                </tool>
-            </inputs>
         </file>
     </configuration>
 </project>

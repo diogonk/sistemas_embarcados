@@ -30,6 +30,8 @@ char letters[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 
 
 extern osMessageQueueId_t msgTxUARTQueue;
 
+void findNextFloor(elevator_t *elevator, uint16_t floortoStop);
+
 void elevatorController(void *arg)
 {
 
@@ -105,16 +107,6 @@ void elevatorController(void *arg)
             break;
 
         case WAITING:
-            if (osThreadFlagsWait(0x0001, osFlagsWaitAny, osWaitForever) == 0x0001)
-            {
-                //if (elevator->currentFloor == elevator->nextFloor)
-                //{
-                //    elevator->status = IDLE;
-                //    elevator->next_status = IDLE;
-                //}
-                //else
-                    elevator->status = elevator->next_status;
-            }
             break;
 
         default:
@@ -268,96 +260,117 @@ void elevatorMananger(void *arg)
                         internalReq &= ~(floorStatus);
                     }
                 }
-                if ((floortoStop & floorStatus))
-                {
-                    /*UPDATE NEXT FLOOR*/
-                    switch (elevator->status)
-                    {
-                    case IDLE:
-                        if (elevator->nextFloor == elevator->currentFloor)
-                            elevator->nextFloor = floorUpdate;
-                        break;
-
-                    case GOING_DOWN:
-                        if (elevator->next_status == GOING_UP)
-                        {
-                            if (floorUpdate < elevator->nextFloor)
-                            {
-                                elevator->nextFloor = floorUpdate;
-                            }
-                        }
-                        else
-                        {
-                            if (floorUpdate > elevator->nextFloor)
-                            {
-                                elevator->nextFloor = floorUpdate;
-                            }
-                        }
-                        break;
-
-                    case GOING_UP:
-                        if (elevator->next_status == GOING_DOWN)
-                        {
-                            if (floorUpdate > elevator->nextFloor)
-                            {
-                                elevator->nextFloor = floorUpdate;
-                            }
-                        }
-                        else
-                        {
-                            if (floorUpdate < elevator->nextFloor)
-                            {
-                                elevator->nextFloor = floorUpdate;
-                            }
-                        }
-                        break;
-                    case WAITING:
-                        if(elevator->next_status == GOING_DOWN)
-                            if (elevator->next_status == GOING_UP)
-                            {
-                                if (floorUpdate < elevator->nextFloor)
-                                {
-                                    elevator->nextFloor = floorUpdate;
-                                }
-                            }
-                            else
-                            {
-                                if (floorUpdate > elevator->nextFloor)
-                                {
-                                    elevator->nextFloor = floorUpdate;
-                                }
-                            }
-                        else if(elevator->next_status == GOING_UP)
-                            if (elevator->next_status == GOING_DOWN)
-                            {
-                                if (floorUpdate > elevator->nextFloor)
-                                {
-                                    elevator->nextFloor = floorUpdate;
-                                }
-                            }
-                            else
-                            {
-                                if (floorUpdate < elevator->nextFloor)
-                                {
-                                    elevator->nextFloor = floorUpdate;
-                                }
-                            }
-                        break;
-                    default:
-                        break;
-                    }
-                }
             }
+
+            if(elevator->currentFloor == elevator->nextFloor && (floortoStop & (1<<elevator->nextFloor)))
+                floortoStop &= ~(1<<elevator->nextFloor);
+            
+            findNextFloor(elevator, floortoStop);
 
             if (floortoStop == 0)
             {
                 elevator->next_status = IDLE;
             }
-            if ((externalReqDown == 0 && externalReqUp) == 0)
+        }
+    }
+}
+
+void findNextFloor(elevator_t *elevator, uint16_t floortoStop)
+{
+    uint8_t floorUpdate;
+    uint16_t floorStatus;
+
+    /*UPDATE NEXT FLOOR*/
+    switch (elevator->status)
+    {
+    case IDLE: //if its in idle, find the first requisition
+        for (floorUpdate = 0; floorUpdate < 16; floorUpdate++)
+        {
+            floorStatus = (1 << floorUpdate);
+            if ((floortoStop & floorStatus))
             {
-                elevator->next_status = IDLE;
+                if (elevator->nextFloor == elevator->currentFloor)
+                    elevator->nextFloor = floorUpdate;
             }
         }
+        break;
+
+    case GOING_DOWN:
+        for (floorUpdate = elevator->currentFloor; floorUpdate > 0 && floorUpdate < elevator->currentFloor; floorUpdate--)
+        {
+            floorStatus = (1 << floorUpdate);
+            if ((floortoStop & floorStatus))
+            {
+                if (elevator->next_status == GOING_UP)
+                {
+                    if (floorUpdate < elevator->nextFloor)
+                    {
+                        elevator->nextFloor = floorUpdate;
+                    }
+                }
+                else
+                {
+                    if (floorUpdate > elevator->nextFloor)
+                    {
+                        elevator->nextFloor = floorUpdate;
+                    }
+                }
+            }
+            break;
+        }
+    case GOING_UP:
+        for (floorUpdate = elevator->currentFloor; floorUpdate < 16; floorUpdate++)
+        {
+            floorStatus = (1 << floorUpdate);
+            if ((floortoStop & floorStatus))
+            {
+                if (elevator->next_status == GOING_DOWN)
+                {
+                    if (floorUpdate > elevator->nextFloor)
+                    {
+                        elevator->nextFloor = floorUpdate;
+                    }
+                }
+                else
+                {
+                    if (floorUpdate < elevator->nextFloor)
+                    {
+                        elevator->nextFloor = floorUpdate;
+                    }
+                }
+            }
+        }
+        break;
+    case WAITING:
+
+        if (osThreadFlagsWait(0x0001, osFlagsWaitAny, osWaitForever) == 0x0001) // wait for timer to exit waiting
+        {
+            for (floorUpdate = 0; floorUpdate < 16; floorUpdate++)
+            {
+                floorStatus = (1 << floorUpdate);
+                if ((floortoStop & floorStatus))
+                {
+                    if (elevator->next_status == GOING_DOWN)
+                    {
+                        if (floorUpdate < elevator->currentFloor)
+                        {
+                            elevator->nextFloor = floorUpdate;
+                        }
+                    }
+                    else if (elevator->next_status == GOING_UP)
+                    {
+                        if (floorUpdate > elevator->currentFloor)
+                        {
+                            elevator->nextFloor = floorUpdate;
+                        }
+                    }
+                }
+            }
+            elevator->status = elevator->next_status;
+        }
+        break;
+    default:
+        break;
     }
 }
 
