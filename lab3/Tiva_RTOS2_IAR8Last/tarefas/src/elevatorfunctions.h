@@ -8,6 +8,7 @@
 typedef struct elevator_t{
     uint8_t currentFloor;
     uint8_t nextFloor;
+    uint8_t emptyReq;
     uint8_t status;
     uint8_t next_status;
     uint8_t doors;                  

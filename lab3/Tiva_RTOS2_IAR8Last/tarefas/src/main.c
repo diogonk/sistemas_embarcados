@@ -19,6 +19,9 @@ void main(void){
   newMessageThread = osThreadNew(newMessage, NULL, NULL);//512 bytes
   UARTTxThread = osThreadNew(uartTx, NULL, NULL);//512 bytes
 
+  osThreadSetPriority(newMessageThread, osPriorityHigh);
+  osThreadSetPriority(UARTTxThread, osPriorityHigh);
+
   msgTxUARTQueue = osMessageQueueNew(MSG_TX_BUFFER_SIZE, MSG_STRING_SIZE, NULL); //64 bytes
 
   elevators[0].identifier = 'e';
@@ -37,9 +40,9 @@ void main(void){
   elevatorManangerThreads[1] = osThreadNew(elevatorMananger, (void *)&elevators[1], NULL);
   elevatorManangerThreads[2] = osThreadNew(elevatorMananger, (void *)&elevators[2], NULL);
 
-  elevators[0].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorManangerThreads[0], NULL);
-  elevators[1].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorManangerThreads[1], NULL);
-  elevators[2].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorManangerThreads[2], NULL);
+  elevators[0].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorControllerThreads[0], NULL);
+  elevators[1].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorControllerThreads[1], NULL);
+  elevators[2].timerWaitState = osTimerNew(timerElevatorWaitStateCallback, osTimerOnce, (void *)&elevatorControllerThreads[2], NULL);
   
   if(osKernelGetState() == osKernelReady)
     osKernelStart();
